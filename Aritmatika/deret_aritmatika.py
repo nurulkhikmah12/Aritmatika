@@ -1,7 +1,5 @@
 import streamlit as st
 import time
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd # Menambahkan import pandas untuk visualisasi tabel
 
 def calculate_arithmetic_series(a, b, n_terms):
@@ -18,7 +16,7 @@ st.set_page_config(
 st.title("📊 Kalkulator Deret Aritmatika Interaktif")
 st.markdown("""
 Aplikasi ini dirancang untuk membantu Anda *memahami dan menemukan rumus deret aritmatika ($U_n = a + (n-1)b$)* secara interaktif.
-Coba ubah nilai-nilai di sidebar dan perhatikan bagaimana deret terbentuk serta divisualisasikan!
+Coba ubah nilai-nilai di sidebar dan perhatikan bagaimana deret terbentuk!
 """)
 
 st.markdown("---")
@@ -46,7 +44,6 @@ st.write(f"*Jumlah Suku (n):* {num_terms}")
 
 placeholder_series = st.empty()
 placeholder_un_formula = st.empty()
-placeholder_graph = st.empty() # Placeholder untuk grafik
 
 # Animasi Pembentukan Deret
 current_series_display = []
@@ -76,20 +73,6 @@ for i in range(num_terms):
             st.markdown(f"$$U_n = a + (n-1)b$$")
             st.markdown(f"Untuk suku ke-$U_{i+1}$, maka $U_{i+1} = a + ({i+1}-1)b = a + {i}b$")
             st.write(f"$U_{i+1} = {initial_term} + {i} \\times {common_difference} = {current_term}$")
-
-    # Update visualisasi grafik
-    with placeholder_graph.container():
-        st.subheader("Visualisasi Deret Aritmatika")
-        fig, ax = plt.subplots(figsize=(10, 5))
-        x_labels = [f"U{j+1}" for j in range(len(series_values))]
-        ax.bar(x_labels, series_values, color='skyblue')
-        ax.plot(x_labels, series_values, color='red', marker='o', linestyle='--')
-        ax.set_title("Visualisasi Suku-Suku Deret Aritmatika")
-        ax.set_xlabel("Urutan Suku")
-        ax.set_ylabel("Nilai Suku")
-        ax.grid(axis='y', linestyle='--', alpha=0.7)
-        st.pyplot(fig)
-        plt.close(fig) # Penting untuk mencegah duplikasi plot
 
     time.sleep(animation_speed)
 
